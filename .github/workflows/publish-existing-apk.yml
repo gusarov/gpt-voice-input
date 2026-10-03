@@ -1,0 +1,31 @@
+name: publish-existing-apk
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download signed APK artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts/11279944648/zip > artifact.zip
+          unzip artifact.zip
+          mkdir -p dist
+          cp app-release.apk dist/gpt-voice-input-gusarov.apk
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: gusarov-test-v1
+          target_commitish: main
+          name: GPT Voice Input — Gusarov test build
+          make_latest: false
+          files: dist/gpt-voice-input-gusarov.apk
