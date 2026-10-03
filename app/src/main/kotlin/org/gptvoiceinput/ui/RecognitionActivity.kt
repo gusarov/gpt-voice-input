@@ -11,6 +11,7 @@ import android.os.SystemClock
 import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -114,6 +115,12 @@ class RecognitionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Keep caller editor and IME focus alive while this translucent
+        // recognizer is on top. SwiftKey can otherwise race InputConnection
+        // restoration when this Activity finishes and silently lose text.
+        window.addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+
         setContentView(R.layout.activity_recognition)
 
         secureStore = SecureApiKeyStore(this)
