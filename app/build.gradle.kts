@@ -42,7 +42,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "org.gptvoiceinput"
+        applicationId = "org.gptvoiceinput.gusarov"
         minSdk = 26
         targetSdk = 35
         versionCode = System.getenv("GVI_VERSION_CODE")?.toIntOrNull() ?: 1
