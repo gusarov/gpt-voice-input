@@ -27,7 +27,7 @@ class PackageFrontDoorTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val pm: PackageManager = context.packageManager
 
-    private val aliasName = "${context.packageName}.SettingsFrontDoor"
+    private val aliasName = "org.gptvoiceinput.SettingsFrontDoor"
 
     @Test
     fun `getLaunchIntentForPackage returns a usable front-door intent`() {
